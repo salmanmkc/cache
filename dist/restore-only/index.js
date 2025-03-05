@@ -8823,6 +8823,12 @@ class CacheServiceClient {
                     (0, core_1.debug)(`[Response] - ${response.message.statusCode}`);
                     (0, core_1.debug)(`Headers: ${JSON.stringify(response.message.headers, null, 2)}`);
                     const body = JSON.parse(rawBody);
+                    if (body === null || body === void 0 ? void 0 : body.signed_upload_url) {
+                        (0, core_1.setSecret)(body.signed_upload_url);
+                    }
+                    if (body === null || body === void 0 ? void 0 : body.signed_download_url) {
+                        (0, core_1.setSecret)(body.signed_download_url);
+                    }
                     (0, core_1.debug)(`Body: ${JSON.stringify(body, null, 2)}`);
                     if (this.isSuccessStatusCode(statusCode)) {
                         return { response, body };
