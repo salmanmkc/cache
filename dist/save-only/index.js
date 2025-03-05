@@ -6977,7 +6977,6 @@ function saveCacheV2(paths, key, options, enableCrossOsArchive = false) {
                 if (!response.ok) {
                     throw new Error('Response was not ok');
                 }
-                core.setSecret(response.signedUploadUrl);
                 signedUploadUrl = response.signedUploadUrl;
             }
             catch (error) {
