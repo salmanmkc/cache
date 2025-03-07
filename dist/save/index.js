@@ -5960,10 +5960,11 @@ class CacheServiceClient {
      * @param urlType The type of the URL (e.g., 'signed_upload_url', 'signed_download_url').
      */
     maskSigUrl(url, urlType) {
-        const sigMatch = url.match(/[?&]sig=([^&]+)/);
+        const sigMatch = url.match(/[?&]sig=.*$/);
         if (sigMatch) {
-            (0, core_1.setSecret)(sigMatch[1]);
-            (0, core_1.debug)(`Masked ${urlType}: ${url.replace(sigMatch[1], '***')}`);
+            const maskedUrl = url.replace(sigMatch[0], 'sig=***');
+            (0, core_1.setSecret)(sigMatch[0].substring(5)); // Extract the token part after 'sig='
+            (0, core_1.debug)(`Masked ${urlType}: ${maskedUrl}`);
         }
     }
     maskSecretUrls(body) {
